@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>情報技術研究部 - 文化祭特設サイト</title>
+    <style>
+        /* --- 全体のリセットと共通設定（サイバー風） --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0a0c10;
+            color: #00ffcc; /* ネオングリーン */
+            overflow-x: hidden;
+        }
+
+        /* --- ヘッダー --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 2px solid #00ffcc;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 0 0 10px #00ffcc;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #00ffcc;
+            text-shadow: 0 0 8px #00ffcc;
+        }
+
+        /* --- メインビジュアル（タイトル画面風） --- */
+        .hero {
+            height: 80vh;
+            position: relative; /* バイナリ背景を絶対配置するため */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #0a0c10;
+            border-bottom: 1px dashed #00ffcc;
+            overflow: hidden;
+        }
+
+        /* 前面に来る通常のコンテンツ */
+        .hero-content {
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 4px;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #8892b0;
+            margin-bottom: 40px;
+        }
+
+        /* PRESS START風ボタン */
+        .start-btn {
+            background: transparent;
+            color: #00ffcc;
+            border: 2px solid #00ffcc;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.2s;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+        }
+
+        .start-btn:hover {
+            background: #00ffcc;
+            color: #0a0c10;
+            box-shadow: 0 0 25px #00ffcc;
+            transform: scale(1.05);
+        }
+
+        /* ─── ★ギミック：ドラッグで浮き出るバイナリ背景 ─── */
+        .binary-bg {
+            position: absolute;
+            top: 5%;
+            left: 2%;
+            right: 2%;
+            bottom: 5%;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            letter-spacing: 4px;
+            text-align: justify;
+            word-break: break-all;
+            
+            /* 通常時は文字を完全に透明にして隠す */
+            color: transparent; 
+            background: transparent;
+            
+            user-select: all; /* ドラッグ選択を可能にする */
+            z-index: 1;
+        }
+
+        /* ─── ★ドラッグ（全選択）された時のネオン反転 ─── */
+        .binary-bg::selection {
+            background: rgba(0, 255, 204, 0.2); /* 薄い緑のハイライト */
+            color: #00ffcc;                     /* 文字が鮮やかに浮き出る */
+            text-shadow: 0 0 10px #00ffcc;      /* 文字を光らせる */
+        }
+
+        /* タイトルなどの選択色も世界観を統一 */
+        .hero-content *::selection {
+            background: rgba(0, 255, 204, 0.3);
+            color: #fff;
+        }
+
+        /* --- コンテンツエリア --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        section {
+            margin-bottom: 80px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            border-left: 4px solid #00ffcc;
+            padding-left: 15px;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        /* 文化祭のインフォメーション箱 */
+        .info-box {
+            background: #121824;
+            border: 1px solid #334155;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .info-box h3 {
+            color: #ff007f; /* アクセントのピンク */
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        /* --- ゲーム作品一覧（グリッドレイアウト） --- */
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* カード全体をリンク化するための設定 */
+        .game-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .game-card {
+            background: #121824;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: 0.3s;
+            height: 100%; /* カードの高さを統一 */
+        }
+
+        /* マウスホバー時のエフェクト */
+        .game-link:hover .game-card {
+            border-color: #00ffcc;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.2);
+        }
+
+        .game-img {
+            width: 100%;
+            height: 180px;
+            background: #1e293b; /* 画像がない時のダミー背景 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #64748b;
+        }
+
+        .game-info {
+            padding: 20px;
+        }
+
+        .game-title {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            transition: 0.2s;
+        }
+
+        /* ホバー時にタイトルをネオンカラーに */
+        .game-link:hover .game-title {
+            color: #00ffcc;
+        }
+
+        .game-desc {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* --- フッター --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #64748b;
+            border-top: 1px solid #1e293b;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">IT_RESEARCH_CLUB.js</div>
+        <nav>
+            <a href="#event">文化祭展示</a>
+            <a href="#games">作品紹介</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        
+        <div class="binary-bg">
+            001100110011000000110010001100110011000000110010001100110011000000110010
+            001100110011000000110010001100110011000000110010001100110011000000110010
+            001100110011000000110010001100110011000000110010001100110011000000110010
+            001100110011000000110010001100110011000000110010001100110011000000110010
+            001100110011000000110010001100110011000000110010001100110011000000110010
+            001100110011000000110010001100110011000000110010001100110011000000110010
+            001100110011000000110010001100110011000000110010001100110011000000110010
+        </div>
+
+        <div class="hero-content">
+            <h1>情報技術研究部</h1>
+            <p>CREATIVE GAME CREATORS // CULTURE FESTIVAL 2026</p>
+            <button class="start-btn" onclick="document.getElementById('event').scrollIntoView({behavior: 'smooth'});">
+                PRESS START
+            </button>
+        </div>
+
+    </div>
+
+    <div class="container">
+
+        <section id="event">
+            <h2>CULTURE FESTIVAL INFO</h2>
+            <div class="info-box">
+                <h3>部活展示：自作ゲーム試遊会開催！</h3>
+                <p><strong>場所：</strong> 5階 電算室</p>
+                <p><strong>時間：</strong> 文化祭開催期間中いつでもプレイ可能！</p>
+                <p style="margin-top: 15px; color: #94a3b8;">
+                    部員が作ったゲームを多数展示。様々なジャンルが無料で遊び放題です。楽しんでいってね。
+                </p>
+            </div>
+        </section>
+
+        <section id="games">
+            <h2>PROJECTS (展示作品一覧)</h2>
+            <div class="game-grid">
+
+                <a href="game1.html" class="game-link">
+                    <div class="game-card">
+                        <div class="game-img">[ここにゲームのスクショ画像]</div>
+                        <div class="game-info">
+                            <div class="game-title">⚙️ タイトル未定（仮称）</div>
+                            <p class="game-desc">
+                                【ジャンル：2Dアクション】<br>
+                                直感的な操作感と、こだわりのドット絵が魅力の王道スクロールアクション。全3ステージの体験版を公開中！
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                <a href="game2.html" class="game-link">
+                    <div class="game-card">
+                        <div class="game-img">[ここにゲームのスクショ画像]</div>
+                        <div class="game-info">
+                            <div class="game-title">📝 選択系ノベルゲーム</div>
+                            <p class="game-desc">
+                                【ジャンル：ビジュアルノベル】<br>
+                                あなたの選択で未来が変わる。美麗な立ち絵と、こだわりの演出で魅せる重厚なシナリオ。
+                            </p>
+                        </div>
+                    </div>
+                </a>
+                <a href="リンクさせたいファイル名.html" class="game-link">
+    <div class="game-card">
+        <div class="game-img">[画像]</div>
+        <div class="game-info">
+            <div class="game-title">新しいゲームタイトル</div>
+            <p class="game-desc">
+                【ジャンル：〇〇】<br>
+                ゲームの説明文をここに書きます。
+            </p>
+        </div>
+    </div>
+</a>
+            <a href="リンクさせたいファイル名.html" class="game-link">
+    <div class="game-card">
+        <div class="game-img">[画像]</div>
+        <div class="game-info">
+            <div class="game-title">新しいゲームタイトル</div>
+            <p class="game-desc">
+                【ジャンル：〇〇】<br>
+                ゲームの説明文をここに書きます。
+            </p>
+        </div>
+    </div>
+</a>
+                
+    <a href="リンクさせたいファイル名.html" class="game-link">
+    <div class="game-card">
+        <div class="game-img">[画像]</div>
+        <div class="game-info">
+            <div class="game-title">新しいゲームタイトル</div>
+            <p class="game-desc">
+                【ジャンル：〇〇】<br>
+                ゲームの説明文をここに書きます。
+            </p>
+        </div>
+    </div>
+</a>
+                
+                ''ここに追加 ''
+                </div>
+        </section>
+    </div>
+
+    <footer>
+        &copy; 2026 情報技術研究部 All Rights Reserved.
+    </footer>
+
+</body>
+</html>
