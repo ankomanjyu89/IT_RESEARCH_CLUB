@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>3301 // SUCCESSORS</title>
+    <style>
+        body { background-color: #030303; color: #00ff66; font-family: 'Courier New', monospace; text-align: center; padding: 5%; }
+        .clear-container { border: 2px solid #00ff66; padding: 30px; background: #000; display: inline-block; margin-top: 5%; }
+        .form-btn { display: inline-block; background: yellow; color: #000; padding: 12px 25px; text-decoration: none; font-weight: bold; margin: 20px 0; border-radius: 5px; }
+        .leaderboard { width: 400px; margin: 30px auto; border-collapse: collapse; background: #111; }
+        .leaderboard th, .leaderboard td { border: 1px solid #333; padding: 10px; text-align: center; }
+        .leaderboard th { background: #222; }
+        .rank-1 { color: #ffd700; font-weight: bold; } /* 1位は金色 */
+    </style>
+</head>
+<body>
+
+    <div class="clear-container">
+        <h1 style="color: yellow;">[ MISSION ACCOMPLISHED ]</h1>
+        <p>君の知性は証明された。深淵を克服せし者の名を刻め。</p>
+        
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdeW8OKvXV6to7Bkz5Boy0eR9jwAdEUfM-CGAk2hR1AuKuOuw/viewform?usp=dialog" target="_blank" class="form-btn">名簿に名前を記録する</a>
+
+        <h3>ーー 歴代の解読者一覧 ーー</h3>
+        <table class="leaderboard" id="board">
+            <thead>
+                <tr>
+                    <th>解読順</th>
+                    <th>到達者（コードネーム）</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+                <tr><td colspan="2">データ読み込み中...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // ★ステップ2でコピーした「.csv」で終わるURLをここに貼り付ける
+        const spreadsheetCsvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTpAxViZ2_KVM7Xo3hDlmXN088fytlrne-1YQMJVSsitfOOQ3Hqgg4FPa6rEel7jzOXH1w93avcLzD9/pub?gid=1602825667&single=true&output=csv";
+
+        // スプレッドシートからデータを取得して掲示板に表示する関数
+        async function loadLeaderboard() {
+            try {
+                const response = await fetch(spreadsheetCsvUrl);
+                const data = await response.text();
+                
+                // CSVデータを1行ずつに分解
+                const rows = data.split('\n').slice(1); // 1行目（ヘッダー）は飛ばす
+                const tbody = document.getElementById('leaderboard-body');
+                tbody.innerHTML = ""; // 読み込み中テキストを消す
+
+                let count = 0;
+                rows.forEach((row) => {
+                    const columns = row.split(',');
+                    if (columns.length >= 2 && columns[1].trim() !== "") {
+                        count++;
+                        const timestamp = columns[0]; // 送信時間
+                        const name = columns[1].replace(/"/g, ""); // 名前（クオーテーション除去）
+
+                        // テーブルの行を作成
+                        const tr = document.createElement('tr');
+                        // 1位、2位、3位でスタイルを変える演出
+                        const rankClass = count <= 3 ? `rank-${count}` : "";
+                        
+                        tr.innerHTML = `
+                            <td class="${rankClass}">No. ${count}</td>
+                            <td class="${rankClass}">${name}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    }
+                });
+
+                if (count === 0) {
+                    tbody.innerHTML = "<tr><td colspan='2'>まだ到達者は存在しない。君が最初の一人になれ。</td></tr>";
+                }
+            } catch (error) {
+                console.error("掲示板の読み込みに失敗しました:", error);
+            }
+        }
+
+        // ページを開いた時に掲示板を読み込む
+        window.onload = loadLeaderboard;
+    </script>
+</body>
+</html>
