@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>作品詳細 - タイトル未定（仮称）</title>
+    <title>作品詳細 - HANIWA bazooka</title>
     <style>
         body {
             background-color: #0a0c10;
@@ -52,6 +52,85 @@
             color: #cbd5e1;
             line-height: 1.7;
         }
+
+        /* ステップバイステップスタイル */
+        .how-to-play {
+            background: #121824;
+            border: 2px solid #00ffcc;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        .steps-container {
+            display: none;
+        }
+        .steps-container.active {
+            display: block;
+        }
+        .step {
+            margin-bottom: 20px;
+        }
+        .step-title {
+            color: #ff007f;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .step-image {
+            width: 100%;
+            height: 300px;
+            background: #0a0c10;
+            border: 1px solid #334155;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #64748b;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-size: 14px;
+        }
+        .step-description {
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+        .step-counter {
+            color: #00ffcc;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #ff007f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #ff1493;
+        }
+        .btn:disabled {
+            background-color: #64748b;
+            cursor: not-allowed;
+        }
+        .btn-toggle {
+            background-color: #00ffcc;
+            color: #0a0c10;
+        }
+        .btn-toggle:hover {
+            background-color: #00ff99;
+        }
     </style>
 </head>
 <body>
@@ -59,27 +138,140 @@
     <div class="container">
         <a href="index.html" class="back-btn">&larr; 作品一覧に戻る</a>
 
-        <h1>⚙️ タイトル未定（仮称）</h1>
+        <h1>⚙️ HANIWA bazooka</h1>
         
         <div class="game-meta">
-            <strong>制作者：</strong> 山田（2年）<br>
-            <strong>ジャンル：</strong> 2Dスクロールアクション<br>
-            <strong>プレイ時間：</strong> 約10分<br>
-            <strong>開発環境：</strong> Unity / C#
+            <strong>制作者：</strong> 佐伯<br>
+            <strong>ジャンル：</strong> シューティングゲーム<br>
+            <strong>プレイ時間：</strong> 約１分<br>
+            <strong>開発環境：</strong> python / pyagame
         </div>
 
         <div class="screenshot">[ここにゲームの大きなスクリーンショットや動画を配置]</div>
 
+        <!-- ゲーム開き方ガイド -->
+        <div class="how-to-play">
+            <h3 class="section-title">🎮 ゲームの開き方</h3>
+            <button class="btn btn-toggle" id="toggleBtn">ガイドを表示</button>
+
+            <div class="steps-container" id="stepsContainer">
+                <!-- ステップ1 -->
+                <div class="step" id="step1">
+                    <div class="step-title">ステップ 1: PCを選択</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (1).png');"></div>
+                    <div class="step-description">
+                        スクリーン上にあるPCを探して、ダブルクリックします。
+                    </div>
+                    <div class="step-counter"><span id="stepNum">1</span> / 6</div>
+                </div>
+
+                <!-- ステップ2 -->
+                <div class="step" id="step2" style="display: none;">
+                    <div class="step-title">ステップ 2: ゲームを起動</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (2).png');"></div>
+                    <div class="step-description">
+                        そこから共有をクリック
+                    </div>
+                    <div class="step-counter"><span id="stepNum">2</span> / 6</div>
+                </div>
+
+                <!-- ステップ3 -->
+                <div class="step" id="step3" style="display: none;">
+                    <div class="step-title">ステップ 3: フォルダを開く</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (3).png');"></div>
+                    <div class="step-description">
+                        06_情報技術研究部をクリック
+                    </div>
+                    <div class="step-counter"><span id="stepNum">3</span> / 6</div>
+                </div>
+
+                <!-- ステップ4 -->
+                <div class="step" id="step4" style="display: none;">
+                    <div class="step-title">ステップ 4: gameフォルダを開く</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (4).png');"></div>
+                    <div class="step-description">
+                        gameをクリック
+                    </div>
+                    <div class="step-counter"><span id="stepNum">4</span> / 6</div>
+                </div>
+
+                <!-- ステップ5 -->
+                <div class="step" id="step5" style="display: none;">
+                    <div class="step-title">ステップ 5: tamagoフォルダを開く</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (6).png');"></div>
+                    <div class="step-description">
+                        tamagoをクリック
+                    </div>
+                    <div class="step-counter"><span id="stepNum">5</span> / 6</div>
+                </div>
+
+                <!-- ステップ6 -->
+                <div class="step" id="step6" style="display: none;">
+                    <div class="step-title">ステップ 6: ゲーム開始！</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (7).png');"></div>
+                    <div class="step-description">
+                        shooting_game.pyをクリック
+                    </div>
+                    <div class="step-counter"><span id="stepNum">6</span> / 6</div>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn" id="prevBtn" onclick="previousStep()">← 戻る</button>
+                    <button class="btn" id="nextBtn" onclick="nextStep()">次へ →</button>
+                </div>
+            </div>
+        </div>
+
         <h3 class="section-title">あらすじ・ゲーム概要</h3>
         <p>
-            突如としてバグに侵食された仮想世界を救うため、プレイヤーは自作プログラムの「アバター」を操作してステージを駆け抜けます。エネミーを倒し、最深部にあるコアをハックせよ！
+           突然現れたドラゴンとその一味をなぎ倒せ！！
         </p>
 
-        <h3 class="section-title">開発者のこだわりポイント</h3>
+        <h3 class="section-title">操作方法</h3>
         <p>
-            特にこだわったのは「操作の爽快感」です。ジャンプの挙動やダッシュ時のエフェクトなど、触っていて気持ちいいと感じる調整を何度も繰り返しました。また、背景のドット絵も一部自作しています。ぜひ会場でハックしに来てください！
+           右キーと左キーで動かしつつspaceキーで攻撃
         </p>
     </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 6;
+
+        // ガイド表示/非表示切り替え
+        document.getElementById('toggleBtn').addEventListener('click', function() {
+            const container = document.getElementById('stepsContainer');
+            container.classList.toggle('active');
+            this.textContent = container.classList.contains('active') ? 'ガイドを非表示' : 'ガイドを表示';
+        });
+
+        // 次のステップへ
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                document.getElementById(`step${currentStep}`).style.display = 'none';
+                currentStep++;
+                document.getElementById(`step${currentStep}`).style.display = 'block';
+                updateButtons();
+            }
+        }
+
+        // 前のステップへ
+        function previousStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step${currentStep}`).style.display = 'none';
+                currentStep--;
+                document.getElementById(`step${currentStep}`).style.display = 'block';
+                updateButtons();
+            }
+        }
+
+        // ボタンの有効/無効を更新
+        function updateButtons() {
+            document.getElementById('prevBtn').disabled = currentStep === 1;
+            document.getElementById('nextBtn').disabled = currentStep === totalSteps;
+        }
+
+        updateButtons();
+    </script>
 
 </body>
 </html>
