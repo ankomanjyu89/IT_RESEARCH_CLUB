@@ -87,6 +87,10 @@
             color: #64748b;
             margin-bottom: 10px;
             border-radius: 4px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-size: 14px;
         }
         .step-description {
             color: #cbd5e1;
@@ -154,7 +158,7 @@
                 <!-- ステップ1 -->
                 <div class="step" id="step1">
                     <div class="step-title">ステップ 1: PCを選択</div>
-                    <div class="step-image">スクリーンショット (1).png</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (1).png');">スクリーンショット (1).png</div>
                     <div class="step-description">
                         スクリーン上にあるPCを探して、ダブルクリックします。
                     </div>
@@ -164,7 +168,7 @@
                 <!-- ステップ2 -->
                 <div class="step" id="step2" style="display: none;">
                     <div class="step-title">ステップ 2: ゲームを起動</div>
-                    <div class="step-image">スクリーンショット (2).png</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (2).png');">スクリーンショット (2).png</div>
                     <div class="step-description">
                         そこから共有をクリック
                     </div>
@@ -173,34 +177,38 @@
 
                 <!-- ステップ3 -->
                 <div class="step" id="step3" style="display: none;">
-                    <div class="step-title">ステップ 3: ゲーム開始！</div>
-                    <div class="step-image">スクリーンショット (3).png</div>
+                    <div class="step-title">ステップ 3: フォルダを開く</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (3).png');">スクリーンショット (3).png</div>
                     <div class="step-description">
                         06_情報技術研究部をクリック
                     </div>
                     <div class="step-counter"><span id="stepNum">3</span> / 6</div>
                 </div>
-                <div class="step" id="step3" style="display: none;">
-                    <div class="step-title">ステップ 4: ゲーム開始！</div>
-                    <div class="step-image">スクリーンショット (4).png</div>
+
+                <!-- ステップ4 -->
+                <div class="step" id="step4" style="display: none;">
+                    <div class="step-title">ステップ 4: gameフォルダを開く</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (4).png');">スクリーンショット (4).png</div>
                     <div class="step-description">
                         gameをクリック
                     </div>
                     <div class="step-counter"><span id="stepNum">4</span> / 6</div>
                 </div>
 
-          <div class="step" id="step3" style="display: none;">
-                    <div class="step-title">ステップ 5: ゲーム開始！</div>
-                    <div class="step-image">スクリーンショット (6).png</div>
+                <!-- ステップ5 -->
+                <div class="step" id="step5" style="display: none;">
+                    <div class="step-title">ステップ 5: tamagoフォルダを開く</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (6).png');">スクリーンショット (6).png</div>
                     <div class="step-description">
                         tamagoをクリック
                     </div>
                     <div class="step-counter"><span id="stepNum">5</span> / 6</div>
                 </div>
 
-                <div class="step" id="step3" style="display: none;">
+                <!-- ステップ6 -->
+                <div class="step" id="step6" style="display: none;">
                     <div class="step-title">ステップ 6: ゲーム開始！</div>
-                    <div class="step-image">スクリーンショット (7).png</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (7).png');">スクリーンショット (7).png</div>
                     <div class="step-description">
                         shooting_game.pyをクリック
                     </div>
