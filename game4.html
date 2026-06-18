@@ -89,6 +89,79 @@
             <img src="イカ.png" alt="画像" class="game-img__img">
         </div>
 
+            <!-- ゲーム開き方ガイド -->
+        <div class="how-to-play">
+            <h3 class="section-title">🎮 ゲームの開き方</h3>
+            <button class="btn btn-toggle" id="toggleBtn">ガイドを表示</button>
+
+            <div class="steps-container" id="stepsContainer">
+                <!-- ステップ1 -->
+                <div class="step" id="step1">
+                    <div class="step-title">ステップ 1: PCを選択</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (1).png');"></div>
+                    <div class="step-description">
+                        スクリーン上にあるPCを探して、ダブルクリックします。
+                    </div>
+                    <div class="step-counter"><span id="stepNum">1</span> / 6</div>
+                </div>
+
+                <!-- ステップ2 -->
+                <div class="step" id="step2" style="display: none;">
+                    <div class="step-title">ステップ 2: ゲームを起動</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (2).png');"></div>
+                    <div class="step-description">
+                        そこから共有をクリック
+                    </div>
+                    <div class="step-counter"><span id="stepNum">2</span> / 6</div>
+                </div>
+
+                <!-- ステップ3 -->
+                <div class="step" id="step3" style="display: none;">
+                    <div class="step-title">ステップ 3: フォルダを開く</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (3).png');"></div>
+                    <div class="step-description">
+                        06_情報技術研究部をクリック
+                    </div>
+                    <div class="step-counter"><span id="stepNum">3</span> / 6</div>
+                </div>
+
+                <!-- ステップ4 -->
+                <div class="step" id="step4" style="display: none;">
+                    <div class="step-title">ステップ 4: gameフォルダを開く</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (4).png');"></div>
+                    <div class="step-description">
+                        gameをクリック
+                    </div>
+                    <div class="step-counter"><span id="stepNum">4</span> / 6</div>
+                </div>
+
+                <!-- ステップ5 -->
+                <div class="step" id="step5" style="display: none;">
+                    <div class="step-title">ステップ 5: tamagoフォルダを開く</div>
+                    <div class="step-image" style="background-image: url('スクリーンショット (6).png');"></div>
+                    <div class="step-description">
+                        tamagoをクリック
+                    </div>
+                    <div class="step-counter"><span id="stepNum">5</span> / 6</div>
+                </div>
+
+                <!-- ステップ6 -->
+                <div class="step" id="step6" style="display: none;">
+                    <div class="step-title">ステップ 6: ゲーム開始！</div>
+                    <div class="step-image" style="background-image: url('haniwa.png');"></div>
+                    <div class="step-description">
+                        haniwa_bazooka_2.pyをクリック
+                    </div>
+                    <div class="step-counter"><span id="stepNum">6</span> / 6</div>
+                </div>
+                
+                <div class="button-group">
+                    <button class="btn" id="prevBtn" onclick="previousStep()">← 戻る</button>
+                    <button class="btn" id="nextBtn" onclick="nextStep()">次へ →</button>
+                </div>
+            </div>
+        </div>
+
         <h3 class="section-title">あらすじ・ゲーム概要</h3>
         <p>
             こんどは大群を率いて倒しにやってきた！？
