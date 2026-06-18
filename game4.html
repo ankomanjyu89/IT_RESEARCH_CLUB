@@ -32,17 +32,34 @@
             margin-bottom: 30px;
             line-height: 1.8;
         }
-        .screenshot {
-            width: 100%;
-            height: 400px;
-            background: #121824;
-            border: 1px solid #334155;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #64748b;
-            margin-bottom: 30px;
-        }
+/* 作品詳細ページのスクリーンショット：自動調整版 */
+.screenshot {
+  width: 100%;
+  max-height: 500px;       /* 大きく見せたい上限。好みで 400〜600 に調整 */
+  background: #121824;
+  border: 1px solid #334155;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #64748b;
+  margin-bottom: 30px;
+  overflow: hidden;        /* 画像がはみ出さないようにする */
+  padding: 0;
+}
+
+/* 画像をコンテナに合わせてスケーリング（縦横どちらでも自然に収まる） */
+.screenshot img {
+  width: 100%;             /* 親幅に合わせて横幅を最大にする */
+  height: auto;            /* 縦横比を保持して高さを自動調整 */
+  max-height: 100%;        /* コンテナの max-height を超えない */
+  object-fit: contain;     /* 画像全体を見せたい場合は contain（トリミングしない） */
+  display: block;
+}
+ 
+/* モバイルで高さをさらに抑えたい場合 */
+@media (max-width: 600px) {
+  .screenshot { max-height: 300px; }
+}
         .section-title {
             color: #ff007f;
             margin-top: 40px;
