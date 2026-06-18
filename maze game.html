@@ -182,7 +182,7 @@
                     <div class="step-description">
                         スクリーン上にあるPCを探して、ダブルクリックします。
                     </div>
-                    <div class="step-counter"><span id="stepNum">1</span> / 6</div>
+                    <div class="step-counter"><span id="stepNum">1</span> / 5</div>
                 </div>
 
                 <!-- ステップ2 -->
@@ -192,7 +192,7 @@
                     <div class="step-description">
                         そこから共有をクリック
                     </div>
-                    <div class="step-counter"><span id="stepNum">2</span> / 6</div>
+                    <div class="step-counter"><span id="stepNum">2</span> / 5</div>
                 </div>
 
                 <!-- ステップ3 -->
@@ -202,7 +202,7 @@
                     <div class="step-description">
                         06_情報技術研究部をクリック
                     </div>
-                    <div class="step-counter"><span id="stepNum">3</span> / 6</div>
+                    <div class="step-counter"><span id="stepNum">3</span> / 5</div>
                 </div>
 
                 <!-- ステップ4 -->
@@ -212,29 +212,20 @@
                     <div class="step-description">
                         gameをクリック
                     </div>
-                    <div class="step-counter"><span id="stepNum">4</span> / 6</div>
+                    <div class="step-counter"><span id="stepNum">4</span> / 5</div>
                 </div>
 
                 <!-- ステップ5 -->
                 <div class="step" id="step5" style="display: none;">
-                    <div class="step-title">ステップ 5: tamagoフォルダを開く</div>
-                    <div class="step-image" style="background-image: url('スクリーンショット (6).png');"></div>
+                    <div class="step-title">ステップ 5: ゲーム開始！</div>
+                    <div class="step-image" style="background-image: url('マグロ.png');"></div>
                     <div class="step-description">
-                        tamagoをクリック
+                        maze.pyをクリック
                     </div>
-                    <div class="step-counter"><span id="stepNum">5</span> / 6</div>
+                    <div class="step-counter"><span id="stepNum">5</span> / 5</div>
                 </div>
 
-                <!-- ステップ6 -->
-                <div class="step" id="step6" style="display: none;">
-                    <div class="step-title">ステップ 6: ゲーム開始！</div>
-                    <div class="step-image" style="background-image: url('スクリーンショット (7).png');"></div>
-                    <div class="step-description">
-                        shooting_game.pyをクリック
-                    </div>
-                    <div class="step-counter"><span id="stepNum">6</span> / 6</div>
-                </div>
-                
+              
                 <div class="button-group">
                     <button class="btn" id="prevBtn" onclick="previousStep()">← 戻る</button>
                     <button class="btn" id="nextBtn" onclick="nextStep()">次へ →</button>
@@ -248,6 +239,45 @@
 
        
     </div>
+ <script>
+        let currentStep = 1;
+        const totalSteps = 5;
+
+        // ガイド表示/非表示切り替え
+        document.getElementById('toggleBtn').addEventListener('click', function() {
+            const container = document.getElementById('stepsContainer');
+            container.classList.toggle('active');
+            this.textContent = container.classList.contains('active') ? 'ガイドを非表示' : 'ガイドを表示';
+        });
+
+        // 次のステップへ
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                document.getElementById(`step${currentStep}`).style.display = 'none';
+                currentStep++;
+                document.getElementById(`step${currentStep}`).style.display = 'block';
+                updateButtons();
+            }
+        }
+
+        // 前のステップへ
+        function previousStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step${currentStep}`).style.display = 'none';
+                currentStep--;
+                document.getElementById(`step${currentStep}`).style.display = 'block';
+                updateButtons();
+            }
+        }
+
+        // ボタンの有効/無効を更新
+        function updateButtons() {
+            document.getElementById('prevBtn').disabled = currentStep === 1;
+            document.getElementById('nextBtn').disabled = currentStep === totalSteps;
+        }
+
+        updateButtons();
+    </script>
 
 </body>
 </html>
