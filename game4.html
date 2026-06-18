@@ -179,6 +179,44 @@
         </p>
         
     </div>
+    <script>
+        let currentStep = 1;
+        const totalSteps = 6;
 
+        // ガイド表示/非表示切り替え
+        document.getElementById('toggleBtn').addEventListener('click', function() {
+            const container = document.getElementById('stepsContainer');
+            container.classList.toggle('active');
+            this.textContent = container.classList.contains('active') ? 'ガイドを非表示' : 'ガイドを表示';
+        });
+
+        // 次のステップへ
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                document.getElementById(`step${currentStep}`).style.display = 'none';
+                currentStep++;
+                document.getElementById(`step${currentStep}`).style.display = 'block';
+                updateButtons();
+            }
+        }
+
+        // 前のステップへ
+        function previousStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step${currentStep}`).style.display = 'none';
+                currentStep--;
+                document.getElementById(`step${currentStep}`).style.display = 'block';
+                updateButtons();
+            }
+        }
+
+        // ボタンの有効/無効を更新
+        function updateButtons() {
+            document.getElementById('prevBtn').disabled = currentStep === 1;
+            document.getElementById('nextBtn').disabled = currentStep === totalSteps;
+        }
+
+        updateButtons();
+    </script>
 </body>
 </html>
