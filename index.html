@@ -209,7 +209,59 @@
             align-items: center;
             color: #64748b;
         }
+/* 画像をカード内に自動調整する（コピーして既存の .game-img と .game-img__img を置換） */
+.game-img {
+  width: 100%;
+  aspect-ratio: 3 / 4;      /* デフォルト比率（縦長）。必要なら 16/9 や 1/1 に変更 */
+  max-height: 220px;        /* カード全体の高さ崩れを防ぐ上限。好みで調整 */
+  min-height: 100px;        /* あまり小さくならないようにする下限 */
+  overflow: hidden;
+  background: #1e293b;      /* 画像がないときのプレースホルダ色 */
+  display: block;
+  position: relative;       /* 中の img を絶対配置するため */
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
 
+/* 画像はコンテナを完全に覆い、中央を切り抜く */
+.game-img__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* 中央を保持して切り抜く（contain にすると全部見えるが余白が出る） */
+  object-position: center;  /* 重要部分が上寄せなら 'center top' 等に変更 */
+  display: block;
+}
+
+/* モバイル時は高さを控えめにする */
+@media (max-width: 600px) {
+  .game-img {
+    aspect-ratio: 3 / 4;
+    max-height: 140px;
+    min-height: 80px;
+  }
+}
+
+/* detail ページの .screenshot にも同じ動作をさせたい場合 */
+.screenshot {
+  width: 100%;
+  aspect-ratio: 16 / 9;     /* 大きく見せたいスクリーンショットは横長にする等、ここを変更 */
+  max-height: 500px;
+  overflow: hidden;
+  background: #121824;
+  border: 1px solid #334155;
+  display: block;
+  position: relative;
+}
+
+.screenshot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* detail では全体表示したいなら contain、切り抜きOKなら cover */
+  display: block;
+}
         .game-info {
             padding: 20px;
         }
